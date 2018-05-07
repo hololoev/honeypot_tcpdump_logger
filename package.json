@@ -1,0 +1,17 @@
+{
+  "name": "tcpudp-logger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "logger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint *.js */*.js",
+    "lint-fix": "eslint --fix *.js src/*/*.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "*",
+    "mysql2": "*"
+  }
+}
