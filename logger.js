@@ -13,15 +13,9 @@ const connection = mysql.createConnection(config.mysql);
 const udpdump = spawn('tcpdump', ['-n', 'inbound', 'and', 'udp']);
 const tcpdump = spawn('tcpdump', ['-n', 'tcp[tcpflags] & (tcp-syn) != 0']);
 
-const excludePorts = [];
+const excludePorts = [ 80 ];
 const excludeAddrs = [
-  '172.104.235.64',
-  '192.168.142.232',
   '127.0.0.1',
-  'localhost',
-  '172.104.241.157',
-  '192.168.135.144',
-  '185.121.243.10'
 ];
 
 let lastTcpLine = '';
