@@ -2,7 +2,8 @@
 
 'use strict';
 
-const { spawn } = require('child_process');
+const net = require('net');
+const spawn = require('child_process').spawn;
 const mysql = require('mysql2');
 
 const config = require('./config');
@@ -12,29 +13,19 @@ const connection = mysql.createConnection(config.mysql);
 const udpdump = spawn('tcpdump', ['-n', 'inbound', 'and', 'udp']);
 const tcpdump = spawn('tcpdump', ['-n', 'tcp[tcpflags] & (tcp-syn) != 0']);
 
-const excludePorts = [ 80 ];
+const excludePorts = [];
 const excludeAddrs = [
+  '172.104.235.64',
+  '192.168.142.232',
   '127.0.0.1',
+  'localhost',
+  '172.104.241.157',
+  '192.168.135.144',
+  '185.121.243.10'
 ];
 
 let lastTcpLine = '';
 let lastUdpLine = '';
-
-function checkIP(ip) {
-  let ipParts = ip.split('.');
-  if( ipParts.length != 4 )
-    return false;
-  
-  for(let index=0; index<4; index++) {
-    let part = parseInt(ipParts[ index ]);
-    if( (part > 255) || (part < 0) )
-      return false;
-    
-    if( ('' + part) != ipParts[ index ] )
-      return false;
-  }
-  return true;
-}
 
 function parseIP(ipStr) {
   let addrParts = ipStr.split('.');
@@ -46,7 +37,7 @@ function parseIP(ipStr) {
   
   let addr = ipOctets.join('.');
 
-  if( !checkIP(addr) )
+  if( !net.isIP(addr) )
     addr = null;
 
   return {
