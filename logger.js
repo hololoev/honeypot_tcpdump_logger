@@ -16,6 +16,8 @@ const tcpdump = spawn('tcpdump', ['-n', 'tcp[tcpflags] & (tcp-syn) != 0']);
 const excludePorts = [ 80 ];
 const excludeAddrs = [
   '127.0.0.1',
+  '185.121.243.14',
+  '172.104.235.64'
 ];
 
 let lastTcpLine = '';
@@ -46,6 +48,7 @@ function parseLine(line, proto) {
   let srcAddrParts = parseIP(parts[ 2 ]);
 
   return {
+    source: config.nodeName,
     addr: srcAddrParts.addr,
     port: dstAddrParts.port,
     proto: proto,
@@ -84,6 +87,9 @@ function saveLog(info) {
 
 udpdump.stdout.on('data', (data) => {
   let lines = `${data}`.split('\n');
+
+  console.log( lines );
+
   let lastUdpLineNum = lines.length - 1;
   let toNum = lines.length - 1;
 

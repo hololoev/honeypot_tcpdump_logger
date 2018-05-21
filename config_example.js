@@ -3,6 +3,7 @@ module.exports = {
     host: '127.0.0.1',
     database: 'bebebe',
     user: 'mememe',
-    password: 'qwertyuiop'
-  }
+    password: 'qweqweqwe'
+  },
+  nodeName: 'uk-honeypot'
 };
