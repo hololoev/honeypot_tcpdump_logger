@@ -83,7 +83,7 @@ udpdump.stdout.on('data', (data) => {
   let lastUdpLineNum = lines.length - 1;
   let toNum = lines.length - 1;
 
-  lines[ 0 ] = lines[ 0 ] + lastUdpLine;
+  lines[ 0 ] = lastUdpLine + lines[ 0 ];
 
   if( lines[ lastUdpLineNum ].indexOf('\n') == -1 ) {
     lastUdpLine = lines[ lastUdpLineNum ];
@@ -101,7 +101,7 @@ tcpdump.stdout.on('data', (data) => {
   let lastTcpLineNum = lines.length - 1;
   let toNum = lines.length - 1;
 
-  lines[ 0 ] = lines[ 0 ] + lastTcpLine;
+  lines[ 0 ] = lastTcpLine + lines[ 0 ];
 
   if( lines[ lastTcpLineNum ].indexOf('\n') == -1 ) {
     lastTcpLine = lines[ lastTcpLineNum ];
