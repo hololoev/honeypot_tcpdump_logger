@@ -13,13 +13,6 @@ const connection = mysql.createConnection(config.mysql);
 const udpdump = spawn('tcpdump', ['-n', 'inbound', 'and', 'udp']);
 const tcpdump = spawn('tcpdump', ['-n', 'tcp[tcpflags] & (tcp-syn) != 0']);
 
-const excludePorts = [ 80 ];
-const excludeAddrs = [
-  '127.0.0.1',
-  '185.121.243.14',
-  '172.104.235.64'
-];
-
 let lastTcpLine = '';
 let lastUdpLine = '';
 
@@ -57,10 +50,10 @@ function parseLine(line, proto) {
 }
 
 function saveLog(info) {
-  if( excludePorts.indexOf(info.port) > -1 )
+  if( config.excludePorts.indexOf(info.port) > -1 )
     return;
     
-  if( excludeAddrs.indexOf(info.addr) > -1 )
+  if( config.excludeAddrs.indexOf(info.addr) > -1 )
     return;
 
   for(let key in info)
@@ -87,9 +80,6 @@ function saveLog(info) {
 
 udpdump.stdout.on('data', (data) => {
   let lines = `${data}`.split('\n');
-
-  console.log( lines );
-
   let lastUdpLineNum = lines.length - 1;
   let toNum = lines.length - 1;
 

@@ -5,5 +5,9 @@ module.exports = {
     user: 'mememe',
     password: 'qweqweqwe'
   },
-  nodeName: 'uk-honeypot'
+  nodeName: 'uk-honeypot',
+  excludePorts: [ 80 ],
+  excludeAddrs: [
+    '127.0.0.1'
+  ]
 };
