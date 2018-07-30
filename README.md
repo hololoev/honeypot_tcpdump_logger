@@ -14,7 +14,7 @@
  
  - npm i
  
- - rename config_example.js to  - config.js and edit mysql connection preferences
+ - rename config_example.js to config.js, and edit mysql connection preferences
  
  - create mysql schema by importing db.sql
  
